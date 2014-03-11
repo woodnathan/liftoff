@@ -1,20 +1,25 @@
-*.gem
-*.rbc
-.bundle
-.config
-.yardoc
-Gemfile.lock
-InstalledFiles
-_yardoc
-coverage
-doc/
-lib/bundler/man
-rdoc
-spec/reports
-test/tmp
-test/version_tmp
-tmp
-*.DS_Store
+# autotools related files
+Makefile
+Makefile.in
+*/Makefile
+*/Makefile.in
+aclocal.m4
+autom4te.cache
+autoscan.log
+config.log
+config.status
+configure
+configure.scan
+install-sh
+missing
+depcomp
 
-vendor/
-pkg/
+# Make targets
+src/liftoff
+lib/liftoff/version.rb
+liftoff-*.tar.gz
+vendor/gems
+
+# Sub-repositories for release
+gh-pages
+homebrew-formulae

@@ -33,14 +33,14 @@ warnings:
   - CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF
 
 application_target_groups:
-  - <%= project_name %>:
+  - <%=project_name%>:
     - Categories:
     - Classes:
       - Controllers:
       - DataSources:
       - Delegates:
-        - <%= prefix %>AppDelegate.h
-        - <%= prefix %>AppDelegate.m
+        - <%=prefix%>AppDelegate.h
+        - <%=prefix%>AppDelegate.m
       - Models:
       - ViewControllers:
       - Views:
@@ -50,8 +50,8 @@ application_target_groups:
       - Storyboards:
       - Nibs:
       - Other-Sources:
-        - <%= project_name %>-Info.plist
-        - <%= project_name %>-Prefix.pch
+        - <%=project_name%>-Info.plist
+        - <%=project_name%>-Prefix.pch
         - main.m
 
 unit_test_target_groups:

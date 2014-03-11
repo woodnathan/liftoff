@@ -1,0 +1,12 @@
+#!@RUBY@
+
+$LOAD_PATH.unshift('@rubydir@')
+
+require '@gemsetuppath@'
+require 'liftoff/require'
+
+# begin
+  Liftoff::CLI.new(ARGV).run
+# rescue => e
+#   $stderr.puts "liftoff: Error: #{e.message}"
+# end

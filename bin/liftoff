@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'pathname'
+# This bin file is provided for convenience during development, the
+# distribution binary is built from the template at src/liftoff.in
 
-file_path = Pathname.new(__FILE__).realpath
-$LOAD_PATH.unshift(File.expand_path('../../lib', file_path))
-require 'liftoff'
+require 'bundler/setup'
+$LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
+
+require 'liftoff/require'
 
 Liftoff::CLI.new(ARGV).run

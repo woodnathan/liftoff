@@ -224,14 +224,14 @@ creates a default directory and group structure for the main
 application target that mimics the following structure:
 .Pp
 .Bd -literal
-  - <%= project_name %>:
+  - <%=project_name%>:
     - Categories:
     - Classes:
       - Controllers:
       - DataSources:
       - Delegates:
-        - <%= prefix %>AppDelegate.h
-        - <%= prefix %>AppDelegate.m
+        - <%=prefix%>AppDelegate.h
+        - <%=prefix%>AppDelegate.m
       - Models:
       - ViewControllers:
       - Views:
@@ -241,8 +241,8 @@ application target that mimics the following structure:
       - Storyboards:
       - Nibs:
       - Other-Sources:
-        - <%= project_name %>-Info.plist
-        - <%= project_name %>-Prefix.pch
+        - <%=project_name%>-Info.plist
+        - <%=project_name%>-Prefix.pch
         - main.m
 .Ed
 .Pp

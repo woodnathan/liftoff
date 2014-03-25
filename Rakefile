@@ -1,3 +1,4 @@
+require_relative '../deployment/lib/deployment/tarball/tasks'
 require 'rspec/core/rake_task'
 require 'rake/packagetask'
 
@@ -34,6 +35,17 @@ namespace :release do
 
   desc 'Clean all build artifacts'
   task :clean => ['gems:clean', 'tarball:clean', 'homebrew:clean']
+end
+
+Deployment::Tarball::Tasks.new('Liftoff', Liftoff::VERSION, 'git@github.com:thoughtbot/liftoff.git', 'gh-pages') do |p|
+  p.need_tar_gz = true
+  p.package_files.include('src/**/*')
+  p.package_files.include('defaults/**/*')
+  p.package_files.include('lib/**/*')
+  p.package_files.include('templates/**/*')
+  p.package_files.include('vendor/**/*')
+  p.package_files.include('man/**/*')
+  p.package_files.include('LICENSE.txt')
 end
 
 namespace :homebrew do
@@ -75,58 +87,6 @@ namespace :homebrew do
       formula.gsub!('__SHA__', `shasum #{GH_PAGES_DIR}/Liftoff-#{Liftoff::VERSION}.tar.gz`.split.first)
       File.write("#{HOMEBREW_FORMULAE_DIR}/Formula/liftoff.rb", formula)
     end
-  end
-end
-
-namespace :tarball do
-  desc 'Build the tarball'
-  task :build => ['checkout', 'package', 'move', 'commit']
-
-  desc 'Checkout gh-pages'
-  task :checkout do
-    `git clone --branch gh-pages git@github.com:thoughtbot/liftoff.git #{GH_PAGES_DIR}`
-  end
-
-  desc 'Move tarball into gh-pages'
-  task :move do
-    FileUtils.mv("pkg/Liftoff-#{Liftoff::VERSION}.tar.gz", GH_PAGES_DIR)
-  end
-
-  desc 'Check in the new tarball'
-  task :commit do
-    Dir.chdir(GH_PAGES_DIR) do
-      `git add Liftoff-#{Liftoff::VERSION}.tar.gz`
-      `git commit -m "Release version #{Liftoff::VERSION}"`
-    end
-  end
-
-  desc 'Push the gh-pages branch'
-  task :push do
-    Dir.chdir(GH_PAGES_DIR) do
-      `git push`
-    end
-  end
-
-  desc 'Remove gh-pages and pkg directories'
-  task :clean do
-    if Dir.exists?(GH_PAGES_DIR)
-      FileUtils.rm_rf(GH_PAGES_DIR)
-    end
-
-    if Dir.exists?('pkg')
-      FileUtils.rm_rf('pkg')
-    end
-  end
-
-  Rake::PackageTask.new('Liftoff', Liftoff::VERSION) do |p|
-    p.need_tar_gz = true
-    p.package_files.include('src/**/*')
-    p.package_files.include('defaults/**/*')
-    p.package_files.include('lib/**/*')
-    p.package_files.include('templates/**/*')
-    p.package_files.include('vendor/**/*')
-    p.package_files.include('man/**/*')
-    p.package_files.include('LICENSE.txt')
   end
 end
 
